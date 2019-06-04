@@ -20,7 +20,6 @@ data = np.genfromtxt(
 X = data[:, 0:11]
 Y = data[:, 11]
 
-test_sample = [[7, 0.7, 1, 1, 0.056, 12, 34, 0.9978, 3.21, 0.66, 9]]
 
 classifier1 = tree.DecisionTreeClassifier(random_state=0)
 classifier2 = svm.SVC(gamma='auto', random_state=0)
@@ -39,10 +38,7 @@ def precision(classifier):
     y_true = data[:, 11]
     y_pred = []
     classifier = classifier.fit(X, Y)
-    for i in range(0, 1599):
-        predicted_class = classifier.predict([X[i]])
-        y_pred.append(predicted_class)
-        i = i + 1
+    y_pred = classifier.predict(X)
     precision = precision_score(y_true, y_pred, average=None)
 
     return precision
@@ -51,10 +47,7 @@ def recall(classifier):
     y_true = data[:, 11]
     y_pred = []
     classifier = classifier.fit(X, Y)
-    for i in range(0, 1599):
-        predicted_class = classifier.predict([X[i]])
-        y_pred.append(predicted_class)
-        i = i + 1
+    y_pred = classifier.predict(X)
     recall = recall_score(y_true, y_pred, average=None)
 
     return recall
@@ -64,11 +57,7 @@ def confusion(classifier):
     y_true = data[:, 11]
     y_pred = []
     classifier = classifier.fit(X, Y)
-    for i in range(0, 1599):
-        predicted_class = classifier.predict([X[i]])
-        y_pred.append(predicted_class)
-        i = i + 1
-
+    y_pred=classifier.predict(X)
     confusion = confusion_matrix(y_true, y_pred)
     return confusion
 
